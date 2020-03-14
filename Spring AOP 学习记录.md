@@ -10,14 +10,14 @@ AOP（面向切面编程）方面的知识又是看了忘忘了看，今天有�
 
 ##### 1、AOP相关术语
 
-		* **连接点（Joinpoint）** 一个类拥有一些边界性质的特定点，如一个类的各个方法就可称为连接点。
-		* **切点（Pointcut）** 切点就是在众多连接点中选择自己感兴趣的连接点，如果将连接点比作一个数据库中的所有记录，那么切点就是一个查询语句的查询条件。
-		* **增强（Advice）** 增强是置入目标连接点的一段代码，增强本身携带方位信息，如方法调用前、调用后、调用前后、异常抛出使等。
-		* **切面（Aspect）** 切面由切点和增强组成，既包含增强逻辑和方位信息，也包含连接点信息。
-		* **目标对象（Target）** 增强逻辑织入的目标类。
-		* **引介（Introduction）** 引介是一种特殊的增强，它为类提供一些属性和方法。这样，即是一个业务类原本没实现某个接口，通过AOP的引介功能也可以动态的为该类添加接口实现逻辑，让该类成为接口的实现类。
-		* **织入（Weaving）** 织入就是讲增强添加到目标类的具体方法上的过程。AOP有三种织入方式①编译期织入、②类装载期织入、③动态代理织入（Spring一般采用的方式）
-		* **代理（Proxy）** 一个类被AOP织入增强后，就产生了一个代理结果类。它融合了增强逻辑，根据代理方式不同，代理类既可能是和原类具有相同接口的类或者是原类的子类。
+* **连接点（Joinpoint）** 一个类拥有一些边界性质的特定点，如一个类的各个方法就可称为连接点。
+* **切点（Pointcut）** 切点就是在众多连接点中选择自己感兴趣的连接点，如果将连接点比作一个数据库中的所有记录，那么切点就是一个查询语句的查询条件。
+* **增强（Advice）** 增强是置入目标连接点的一段代码，增强本身携带方位信息，如方法调用前、调用后、调用前后、异常抛出使等。
+* **切面（Aspect）** 切面由切点和增强组成，既包含增强逻辑和方位信息，也包含连接点信息。
+* **目标对象（Target）** 增强逻辑织入的目标类。
+* **引介（Introduction）** 引介是一种特殊的增强，它为类提供一些属性和方法。这样，即是一个业务类原本没实现某个接口，通过AOP的引介功能也可以动态的为该类添加接口实现逻辑，让该类成为接口的实现类。
+* **织入（Weaving）** 织入就是讲增强添加到目标类的具体方法上的过程。AOP有三种织入方式①编译期织入、②类装载期织入、③动态代理织入（Spring一般采用的方式）
+* **代理（Proxy）** 一个类被AOP织入增强后，就产生了一个代理结果类。它融合了增强逻辑，根据代理方式不同，代理类既可能是和原类具有相同接口的类或者是原类的子类。
 
 通过以上概念我们可以想到通过定义切点、给切点织入增强逻辑等步骤，最后就可以完成切面编程。
 
@@ -163,7 +163,7 @@ public class MainTest {
 
 ​		Spring支持**五种**增强类型，解释如下：
 
-![aop]()
+![aop](https://github.com/DoubleCherish/my_understand_spring/blob/master/advice.png)
 
 * **前置增强** ：`org.springframework.aop.BeforeAdvice` 代表前置增强，Spring只支持方法级的增强，所以目前MethodBeforeAdvice是Spring中可用的前置增强，BeforeAdvice接口是为了将来扩展定义的。
 * **后置增强** ：org.springframework.aop.AfterReturningAdvice，表示在目标方法执行后进行增强。
@@ -208,7 +208,7 @@ public class MainTest {
 
 ​		Spring定义了`org.springframework.aop.framework.AopProxy`接口，最终提供了两个final实现类，如下图所示。
 
-![aopproxy]()
+![aopproxy](https://github.com/DoubleCherish/my_understand_spring/blob/master/aopproxy.png)
 
 ​		上图中Cglib2Proxy使用的是Cglib动态代理技术，JdkDynamicAopProxy使用的是JDK动态代理技术，如果通过ProxyFactory的setInterfaces(Class [] interfaces)方法指定目标类的接口信息，那么ProxyFactory底层将使用Jdk动态代理技术，否则不设置就使用Cglib动态代理技术。由此可知我们的示例代码中用到了Cglib动态代理技术。
 
